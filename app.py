@@ -228,49 +228,52 @@ if "current_q" not in st.session_state:
     st.session_state.current_q = 1
     st.session_state.answers = {}
 
-# Story beat questions
+# Story beat questions - FUN & INTERACTIVE
 questions = {
     1: {
-        "beat": "Act 1: The Struggle",
-        "question": "Paint a scene: Your customer wakes up on a Monday morning. What's the FIRST frustration that hits them? What problem makes them think 'ugh, not again'?",
-        "context": "Get specific. Not 'they need marketing help' but 'they're spending 40 hours/week on social media with zero leads'.",
+        "beat": "🎯 So… what are we even selling?",
+        "title": "Problem Clarity + Demand Validation",
+        "question": "🌅 Picture this: Your customer wakes up Monday morning. What's the PAINFUL, EXPENSIVE problem that makes them scream 'ugh, NOT AGAIN'? Get specific! Don't say 'they need help' — say 'they're bleeding $15K/month because X is broken'.",
+        "context": "The more specific, the better. This is the ONLY reason they'll ever buy from you.",
         "extraction": {
-            "label": "Core Problem Identified",
-            "content": "Extract the specific, painful daily struggle"
+            "label": "🔥 Core Problem Extracted",
+            "content": "The real, painful, expensive problem they live with daily"
         },
         "component": {
             "name": "Problem Statement",
-            "usage": "Your website hero headline & value prop"
+            "usage": "Becomes your website headline, email hook, and sales page pain section"
         },
-        "asset": "Problem Definition Document + Website Hero Copy"
+        "asset": "💎 Website Hero Copy + Problem Definition Doc + Email Subject Lines"
     },
     2: {
-        "beat": "Act 2: The Cost",
-        "question": "What's this costing them? Give us a number or a consequence. Money lost? Time wasted? Customers they're missing? Stress at 2 AM?",
-        "context": "Be quantifiable. '$5K/month in lost revenue' hits harder than 'they're losing money'.",
+        "beat": "💰 Money talk… don't run away",
+        "title": "Pricing Logic + Perceived Value + ROI Justification",
+        "question": "🚨 What's the REAL cost if they DON'T solve this? Give us numbers or consequences. How much money? How much time? Lost customers? Stress destroying their health? Make it REAL.",
+        "context": "A specific cost ($50K/year lost) crushes a vague one ('they're losing money'). Quantify the pain.",
         "extraction": {
-            "label": "Problem Quantification",
-            "content": "Extract the financial/emotional cost of NOT solving this"
+            "label": "💸 Cost Quantified",
+            "content": "The financial and emotional price of the problem staying unsolved"
         },
         "component": {
             "name": "ROI Justification",
-            "usage": "Pricing page & sales copy to show 'this problem costs you X'"
+            "usage": "Powers your sales page, pricing justification, and ROI calculator"
         },
-        "asset": "ROI Calculator + Sales Page Copy"
+        "asset": "💎 Sales Page (Pain Section) + ROI Calculator + Demo Script"
     },
     3: {
-        "beat": "Act 3: The Dream",
-        "question": "Fast forward 90 days. They've solved this. What's different about their day, their life, their business? What becomes possible?",
-        "context": "Focus on the transformation, not the feature. Not 'they use our tool' but 'they wake up confident, with 20 qualified leads in their inbox'.",
+        "beat": "✨ Drop the magic: what makes your offer actually good?",
+        "title": "Value Prop + Feature/Benefit Stack + Mechanism",
+        "question": "🚀 Fast forward 90 days. They SOLVED it. What's different? Not 'they use our tool' but 'they wake up with 30 qualified leads, stress-free, with 20 more hours in their week.' Paint the TRANSFORMATION.",
+        "context": "This is the identity they're buying. Who do they become? That's the REAL magic.",
         "extraction": {
-            "label": "Transformation Outcome",
-            "content": "Extract the before/after identity shift"
+            "label": "✨ Transformation Outcome",
+            "content": "The before/after story. The person they become after solving this."
         },
         "component": {
             "name": "Value Proposition",
-            "usage": "Your headline, landing page, email sequences, social proof"
+            "usage": "Your main headline, landing page, email sequences, testimonials, and social proof"
         },
-        "asset": "Website Copy + Email Sequences + Testimonial Framework"
+        "asset": "💎 Main Headline + Landing Page + Email Sequences + Case Studies + Testimonials"
     }
 }
 
@@ -391,15 +394,16 @@ else:
     # Question 1 Summary
     st.markdown(f"""
     <div class='extraction-box'>
-        <div class='summary-header'>🔥 Act 1: The Struggle</div>
+        <div class='summary-header'>🎯 So… what are we even selling?</div>
+        <div style='color: #718096; margin-bottom: 20px; font-size: 14px;'>Problem Clarity + Demand Validation</div>
         
         <div class='extraction-grid'>
             <div class='extraction-item'>
-                <div class='extraction-label'>What They Struggle With</div>
+                <div class='extraction-label'>🔥 The Problem</div>
                 <div class='extraction-content'>{st.session_state.answers.get(1, 'Not answered')[:200]}</div>
             </div>
             <div class='extraction-item'>
-                <div class='extraction-label'>Component Deduced</div>
+                <div class='extraction-label'>Component</div>
                 <div style='margin-top: 20px;'>
                     <div class='component-badge'>Problem Statement</div><br>
                 </div>
@@ -407,10 +411,10 @@ else:
         </div>
         
         <div class='extraction-item' style='grid-column: 1 / -1;'>
-            <div class='extraction-label'>Used In These Assets</div>
+            <div class='extraction-label'>💎 Creative Assets Using This</div>
             <div style='margin-top: 12px;'>
-                <div class='component-badge'>Problem Definition Document</div>
                 <div class='component-badge'>Website Hero Copy</div>
+                <div class='component-badge'>Problem Definition Doc</div>
                 <div class='component-badge'>Email Subject Lines</div>
             </div>
         </div>
@@ -420,15 +424,16 @@ else:
     # Question 2 Summary
     st.markdown(f"""
     <div class='extraction-box'>
-        <div class='summary-header'>💰 Act 2: The Cost</div>
+        <div class='summary-header'>💰 Money talk… don't run away</div>
+        <div style='color: #718096; margin-bottom: 20px; font-size: 14px;'>Pricing Logic + Perceived Value + ROI Justification</div>
         
         <div class='extraction-grid'>
             <div class='extraction-item'>
-                <div class='extraction-label'>The Financial/Emotional Impact</div>
+                <div class='extraction-label'>💸 The Cost</div>
                 <div class='extraction-content'>{st.session_state.answers.get(2, 'Not answered')[:200]}</div>
             </div>
             <div class='extraction-item'>
-                <div class='extraction-label'>Component Deduced</div>
+                <div class='extraction-label'>Component</div>
                 <div style='margin-top: 20px;'>
                     <div class='component-badge'>ROI Justification</div><br>
                 </div>
@@ -436,11 +441,11 @@ else:
         </div>
         
         <div class='extraction-item' style='grid-column: 1 / -1;'>
-            <div class='extraction-label'>Used In These Assets</div>
+            <div class='extraction-label'>💎 Creative Assets Using This</div>
             <div style='margin-top: 12px;'>
                 <div class='component-badge'>Sales Page (Pain Section)</div>
                 <div class='component-badge'>ROI Calculator</div>
-                <div class='component-badge'>Demo/Pitch Deck</div>
+                <div class='component-badge'>Demo Script</div>
             </div>
         </div>
     </div>
@@ -449,15 +454,16 @@ else:
     # Question 3 Summary
     st.markdown(f"""
     <div class='extraction-box'>
-        <div class='summary-header'>✨ Act 3: The Dream</div>
+        <div class='summary-header'>✨ Drop the magic: what makes your offer actually good?</div>
+        <div style='color: #718096; margin-bottom: 20px; font-size: 14px;'>Value Prop + Feature/Benefit Stack + Mechanism</div>
         
         <div class='extraction-grid'>
             <div class='extraction-item'>
-                <div class='extraction-label'>The Transformation</div>
+                <div class='extraction-label'>🚀 The Transformation</div>
                 <div class='extraction-content'>{st.session_state.answers.get(3, 'Not answered')[:200]}</div>
             </div>
             <div class='extraction-item'>
-                <div class='extraction-label'>Component Deduced</div>
+                <div class='extraction-label'>Component</div>
                 <div style='margin-top: 20px;'>
                     <div class='component-badge'>Value Proposition</div><br>
                 </div>
@@ -465,13 +471,13 @@ else:
         </div>
         
         <div class='extraction-item' style='grid-column: 1 / -1;'>
-            <div class='extraction-label'>Used In These Assets</div>
+            <div class='extraction-label'>💎 Creative Assets Using This</div>
             <div style='margin-top: 12px;'>
                 <div class='component-badge'>Main Headline</div>
                 <div class='component-badge'>Landing Page</div>
                 <div class='component-badge'>Email Sequences</div>
-                <div class='component-badge'>Testimonials</div>
                 <div class='component-badge'>Case Studies</div>
+                <div class='component-badge'>Testimonials</div>
             </div>
         </div>
     </div>
