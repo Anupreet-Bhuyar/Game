@@ -1,7 +1,203 @@
 import streamlit as st
 from datetime import datetime
 
-st.set_page_config(page_title="10-Level Framework", layout="wide")
+st.set_page_config(page_title="10-Level Framework", layout="wide", initial_sidebar_state="collapsed")
+
+# Custom CSS for SOTA components
+st.markdown("""
+<style>
+    * {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    
+    .insight-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 16px;
+        padding: 32px;
+        color: white;
+        margin-bottom: 24px;
+        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .insight-quote {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        line-height: 1.4;
+        letter-spacing: -0.5px;
+    }
+    
+    .insight-concept {
+        font-size: 16px;
+        line-height: 1.7;
+        opacity: 0.95;
+        font-weight: 500;
+    }
+    
+    .question-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+        border-left: 4px solid #667eea;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+    
+    .question-number {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-weight: 700;
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+    
+    .question-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+    
+    .progress-bar {
+        height: 8px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    }
+    
+    .level-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+    
+    .level-title {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .level-subtitle {
+        font-size: 18px;
+        color: #718096;
+        font-weight: 500;
+    }
+    
+    .nav-button {
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 12px 24px;
+        transition: all 0.3s ease;
+    }
+    
+    .progress-counter {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 18px;
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .readiness-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .badge-success {
+        background: #c6f6d5;
+        color: #22543d;
+    }
+    
+    .badge-warning {
+        background: #feebc8;
+        color: #7c2d12;
+    }
+    
+    .badge-info {
+        background: #bee3f8;
+        color: #2c5282;
+    }
+    
+    .readiness-report {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 16px;
+        padding: 32px;
+        margin-top: 32px;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+    }
+    
+    .readiness-title {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 24px;
+        color: #1a202c;
+    }
+    
+    .metric-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        border-top: 3px solid #667eea;
+    }
+    
+    .metric-value {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .metric-label {
+        font-size: 13px;
+        color: #718096;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #cbd5e0, transparent);
+        margin: 32px 0;
+    }
+    
+    textarea {
+        border-radius: 12px !important;
+        border: 2px solid #e2e8f0 !important;
+        font-family: 'Segoe UI', sans-serif !important;
+        font-size: 15px !important;
+    }
+    
+    textarea:focus {
+        border-color: #667eea !important;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # Initialize session state
 if "current_level" not in st.session_state:
@@ -28,7 +224,8 @@ insights = {
 # Define all 10 levels with AWESOME questions
 levels = {
     1: {
-        "title": "🎯 Level 1 — So… what are we even selling?",
+        "title": "🎯 Level 1",
+        "heading": "So… what are we even selling?",
         "subtitle": "Problem clarity + demand validation",
         "emoji": "🔥",
         "questions": [
@@ -40,7 +237,8 @@ levels = {
         "insight_key": 1
     },
     2: {
-        "title": "👥 Level 2 — Who are we here for?",
+        "title": "👥 Level 2",
+        "heading": "Who are we here for?",
         "subtitle": "Target persona + emotional triggers",
         "emoji": "💡",
         "questions": [
@@ -52,7 +250,8 @@ levels = {
         "insight_key": 2
     },
     3: {
-        "title": "✨ Level 3 — Drop the magic: what makes your offer actually good?",
+        "title": "✨ Level 3",
+        "heading": "Drop the magic: what makes your offer actually good?",
         "subtitle": "Value prop + feature/benefit stack + mechanism",
         "emoji": "⚡",
         "questions": [
@@ -64,7 +263,8 @@ levels = {
         "insight_key": 3
     },
     4: {
-        "title": "💰 Level 4 — Money talk… don't run away",
+        "title": "💰 Level 4",
+        "heading": "Money talk… don't run away",
         "subtitle": "Pricing logic + perceived value + ROI justification",
         "emoji": "💸",
         "questions": [
@@ -75,7 +275,8 @@ levels = {
         "report_focus": "Pricing"
     },
     5: {
-        "title": "🛡️ Level 5 — Make them feel safe, like a warm blanket",
+        "title": "🛡️ Level 5",
+        "heading": "Make them feel safe, like a warm blanket",
         "subtitle": "Guarantee + objection removal",
         "emoji": "🤝",
         "questions": [
@@ -86,7 +287,8 @@ levels = {
         "report_focus": "Trust & Safety"
     },
     6: {
-        "title": "🔥 Level 6 — Spice time: urgency, scarcity, fireworks",
+        "title": "🔥 Level 6",
+        "heading": "Spice time: urgency, scarcity, fireworks",
         "subtitle": "Scarcity + urgency + social proof + momentum",
         "emoji": "⏰",
         "questions": [
@@ -97,7 +299,8 @@ levels = {
         "report_focus": "Momentum"
     },
     7: {
-        "title": "🎨 Level 7 — Say it with style",
+        "title": "🎨 Level 7",
+        "heading": "Say it with style",
         "subtitle": "Messaging architecture + platform adaptation",
         "emoji": "🎤",
         "questions": [
@@ -108,7 +311,8 @@ levels = {
         "report_focus": "Messaging"
     },
     8: {
-        "title": "🚀 Level 8 — Can you deliver what you promise?",
+        "title": "🚀 Level 8",
+        "heading": "Can you deliver what you promise?",
         "subtitle": "Delivery workflow + support + quality",
         "emoji": "✅",
         "questions": [
@@ -119,7 +323,8 @@ levels = {
         "report_focus": "Delivery"
     },
     9: {
-        "title": "📊 Level 9 — Test → tweak → dominate",
+        "title": "📊 Level 9",
+        "heading": "Test → tweak → dominate",
         "subtitle": "Optimization loop + feedback systems",
         "emoji": "🎯",
         "questions": [
@@ -130,7 +335,8 @@ levels = {
         "report_focus": "Optimization"
     },
     10: {
-        "title": "🎪 Level 10 — Lead generation: getting the right people to the party",
+        "title": "🎪 Level 10",
+        "heading": "Lead generation: getting the right people to the party",
         "subtitle": "Lead definition + acquisition engine + nurturing",
         "emoji": "📢",
         "questions": [
@@ -144,8 +350,8 @@ levels = {
 
 # Function to generate readiness report
 def generate_readiness_report():
-    st.markdown("---")
-    st.markdown("## 🎯 OFFER READINESS REPORT")
+    st.markdown("<div class='readiness-report'>", unsafe_allow_html=True)
+    st.markdown("<h2 class='readiness-title'>🎯 OFFER READINESS REPORT</h2>", unsafe_allow_html=True)
     st.markdown("*Based on your Level 1-3 answers*")
     
     col1, col2, col3 = st.columns(3)
@@ -158,54 +364,59 @@ def generate_readiness_report():
     with col1:
         problem_filled = len(responses.get(list(levels[1]["questions"])[0], "").strip()) > 20
         status = "✅ CLEAR" if problem_filled else "⚠️ FUZZY"
-        st.metric("Problem Clarity", status)
-        if problem_filled:
-            st.caption("Your problem is REAL and specific")
-        else:
-            st.caption("Get more specific about the pain")
+        st.markdown(f"<div class='metric-card'><div class='metric-value'>{status}</div><div class='metric-label'>Problem Clarity</div></div>", unsafe_allow_html=True)
     
     # Persona
     with col2:
         persona_filled = len(responses_2.get(list(levels[2]["questions"])[0], "").strip()) > 20
         status = "✅ DEFINED" if persona_filled else "⚠️ VAGUE"
-        st.metric("Persona Definition", status)
-        if persona_filled:
-            st.caption("You know WHO you're selling to")
-        else:
-            st.caption("Pin down your ideal customer")
+        st.markdown(f"<div class='metric-card'><div class='metric-value'>{status}</div><div class='metric-label'>Persona Definition</div></div>", unsafe_allow_html=True)
     
     # Value Prop
     with col3:
         vp_filled = len(responses_3.get(list(levels[3]["questions"])[0], "").strip()) > 20
         status = "✅ STRONG" if vp_filled else "⚠️ WEAK"
-        st.metric("Value Proposition", status)
-        if vp_filled:
-            st.caption("Your transformation is compelling")
-        else:
-            st.caption("Clarify the core transformation")
+        st.markdown(f"<div class='metric-card'><div class='metric-value'>{status}</div><div class='metric-label'>Value Proposition</div></div>", unsafe_allow_html=True)
     
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
     
     # Readiness indicator
     ready_count = sum([problem_filled, persona_filled, vp_filled])
     
     if ready_count == 3:
+        st.markdown("<span class='readiness-badge badge-success'>✓ MARKET-READY</span>", unsafe_allow_html=True)
         st.success("🚀 YOUR OFFER IS MARKET-READY! You have solid fundamentals. Move to pricing & positioning.")
     elif ready_count == 2:
+        st.markdown("<span class='readiness-badge badge-warning'>⚠ ALMOST THERE</span>", unsafe_allow_html=True)
         st.warning("⚡ YOU'RE ALMOST THERE. One more piece needs clarity before scaling messaging.")
     else:
+        st.markdown("<span class='readiness-badge badge-info'>○ FOUNDATIONAL</span>", unsafe_allow_html=True)
         st.info("💭 STILL FOUNDATIONAL. Go deeper on problem/persona/value before spending on marketing.")
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# Show insight at top
+if st.session_state.current_level <= 3 and st.session_state.current_level in insights:
+    insight = insights[st.session_state.current_level]
+    st.markdown(f"""
+    <div class='insight-card'>
+        <div class='insight-quote'>"{insight['quote']}"</div>
+        <div class='insight-concept'>{insight['concept']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Header with progress
-st.markdown(f"## {levels[st.session_state.current_level]['emoji']} {levels[st.session_state.current_level]['title']}")
-st.markdown(f"*{levels[st.session_state.current_level]['subtitle']}*")
+st.markdown("<div class='level-header'>", unsafe_allow_html=True)
+st.markdown(f"<h1 class='level-title'>{levels[st.session_state.current_level]['title']}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='font-size: 32px; font-weight: 700; color: #2d3748; margin-bottom: 8px;'>{levels[st.session_state.current_level]['heading']}</h2>", unsafe_allow_html=True)
+st.markdown(f"<p class='level-subtitle'>{levels[st.session_state.current_level]['subtitle']}</p>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
-# Animated progress bar
+# Progress bar
 progress_val = st.session_state.current_level / 10
-st.progress(progress_val)
-st.markdown(f"**Progress: Level {st.session_state.current_level} / 10**")
+st.markdown(f"<div style='background: #e2e8f0; height: 8px; border-radius: 10px; overflow: hidden;'><div class='progress-bar' style='width: {progress_val * 100}%; height: 100%;'></div></div>", unsafe_allow_html=True)
 
-st.divider()
+st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 # Get or create response for this level
 level_key = f"level_{st.session_state.current_level}"
@@ -215,39 +426,31 @@ if level_key not in st.session_state.responses:
 # Display questions with interactive styling
 current_question_num = 1
 for question in levels[st.session_state.current_level]["questions"]:
-    with st.container(border=True):
-        st.markdown(f"### Question {current_question_num}")
-        st.markdown(f"> {question}")
-        
-        response = st.text_area(
-            label=f"Your answer",
-            value=st.session_state.responses[level_key].get(question, ""),
-            height=100,
-            label_visibility="collapsed",
-            key=f"q_{st.session_state.current_level}_{current_question_num}",
-            placeholder="Type your answer here..."
-        )
-        
-        st.session_state.responses[level_key][question] = response
+    st.markdown(f"""
+    <div class='question-container'>
+        <span class='question-number'>Q{current_question_num}</span>
+        <div class='question-text'>{question}</div>
+    </div>
+    """, unsafe_allow_html=True)
     
+    response = st.text_area(
+        label=f"Your answer",
+        value=st.session_state.responses[level_key].get(question, ""),
+        height=100,
+        label_visibility="collapsed",
+        key=f"q_{st.session_state.current_level}_{current_question_num}",
+        placeholder="Type your answer here...",
+        max_chars=2000
+    )
+    
+    st.session_state.responses[level_key][question] = response
+    st.markdown("<br>", unsafe_allow_html=True)
     current_question_num += 1
 
-st.divider()
-
-# Show insight quote if available
-if st.session_state.current_level <= 3 and st.session_state.current_level in insights:
-    insight = insights[st.session_state.current_level]
-    st.markdown("---")
-    st.markdown("### 💭 Why This Matters")
-    with st.container(border=True):
-        st.markdown(f"*\"{insight['quote']}\"*")
-        st.markdown("")
-        st.markdown(f"**The Concept:** {insight['concept']}")
-
-st.divider()
+st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 # Navigation with interactive buttons
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
 
 with col1:
     if st.session_state.current_level > 1:
@@ -257,9 +460,12 @@ with col1:
             st.rerun()
 
 with col2:
-    st.markdown(f"<div style='text-align: center; padding: 10px; background: #f0f0f0; border-radius: 5px;'><b>{st.session_state.current_level}/10</b></div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='progress-counter'>{st.session_state.current_level}/10</div>", unsafe_allow_html=True)
 
 with col3:
+    pass
+
+with col4:
     if st.session_state.current_level < 10:
         if st.button("Next Question ➡️", use_container_width=True, key="next_btn", type="primary"):
             st.session_state.current_level += 1
@@ -267,17 +473,18 @@ with col3:
                 st.session_state.show_report = True
             st.rerun()
     else:
-        if st.button("✅ Complete & View Results", use_container_width=True, key="done_btn", type="primary"):
+        if st.button("✅ Complete", use_container_width=True, key="done_btn", type="primary"):
             st.session_state.show_report = True
             st.rerun()
 
 # Show report after level 3
 if st.session_state.show_report and st.session_state.current_level >= 4:
+    st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
     generate_readiness_report()
 
 # Show final summary at the end
 if st.session_state.current_level == 10 and st.session_state.show_report:
-    st.markdown("---")
+    st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
     st.markdown("## 🎉 Ready to launch? Here's your snapshot:")
     
     snapshot_data = {
