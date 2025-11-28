@@ -1,14 +1,4 @@
-st.divider()
-
-# Show insight quote if available
-if st.session_state.current_level <= 3 and st.session_state.current_level in insights:
-    insight = insights[st.session_state.current_level]
-    st.markdown("---")
-    st.markdown("### 💭 Why This Matters")
-    with st.container(border=True):
-        st.markdown(f"*\"{insight['quote']}\"*")
-        st.markdown("")
-        st.markdown(f"**The Concept:** {insight['concept']}")import streamlit as st
+import streamlit as st
 from datetime import datetime
 
 st.set_page_config(page_title="10-Level Framework", layout="wide")
@@ -241,6 +231,18 @@ for question in levels[st.session_state.current_level]["questions"]:
         st.session_state.responses[level_key][question] = response
     
     current_question_num += 1
+
+st.divider()
+
+# Show insight quote if available
+if st.session_state.current_level <= 3 and st.session_state.current_level in insights:
+    insight = insights[st.session_state.current_level]
+    st.markdown("---")
+    st.markdown("### 💭 Why This Matters")
+    with st.container(border=True):
+        st.markdown(f"*\"{insight['quote']}\"*")
+        st.markdown("")
+        st.markdown(f"**The Concept:** {insight['concept']}")
 
 st.divider()
 
