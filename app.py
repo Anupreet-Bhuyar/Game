@@ -1,4 +1,14 @@
-import streamlit as st
+st.divider()
+
+# Show insight quote if available
+if st.session_state.current_level <= 3 and st.session_state.current_level in insights:
+    insight = insights[st.session_state.current_level]
+    st.markdown("---")
+    st.markdown("### 💭 Why This Matters")
+    with st.container(border=True):
+        st.markdown(f"*\"{insight['quote']}\"*")
+        st.markdown("")
+        st.markdown(f"**The Concept:** {insight['concept']}")import streamlit as st
 from datetime import datetime
 
 st.set_page_config(page_title="10-Level Framework", layout="wide")
@@ -8,6 +18,22 @@ if "current_level" not in st.session_state:
     st.session_state.current_level = 1
     st.session_state.responses = {}
     st.session_state.show_report = False
+
+# Quotes and insights
+insights = {
+    1: {
+        "quote": "A starving crowd beats a well-fed niche every single time.",
+        "concept": "You need to find people who are ALREADY searching for a solution. If the problem isn't costing them money or time, they won't buy. This question forces you to prove the market exists before you build anything."
+    },
+    2: {
+        "quote": "People don't buy products. They buy better versions of themselves.",
+        "concept": "Your customer has an identity and a vision for who they want to become. This question uncovers their aspirational self—not just what they need, but who they want to be. That's the real sale."
+    },
+    3: {
+        "quote": "Value is the delta between the perceived outcome and the price paid.",
+        "concept": "A $10K offer that delivers $100K in transformation feels like a steal. A $100 offer that delivers $50 in value feels like a scam. This question forces you to nail the perceived transformation, not the features."
+    },
+}
 
 # Define all 10 levels with AWESOME questions
 levels = {
@@ -20,7 +46,8 @@ levels = {
             "Where are they RIGHT NOW trying to solve this? (What are they paying for? What's broken?)",
             "What would change in their life if this problem disappeared? (Paint the before/after.)"
         ],
-        "report_focus": "Problem Clarity"
+        "report_focus": "Problem Clarity",
+        "insight_key": 1
     },
     2: {
         "title": "👥 Level 2 — Who are we here for?",
@@ -31,7 +58,8 @@ levels = {
             "What makes them say 'ugh, not again' when facing this problem? (What's their trigger?)",
             "What's the ONE thing they'd do differently if they knew it was possible? (Their secret wish?)"
         ],
-        "report_focus": "Persona"
+        "report_focus": "Persona",
+        "insight_key": 2
     },
     3: {
         "title": "✨ Level 3 — Drop the magic: what makes your offer actually good?",
@@ -42,7 +70,8 @@ levels = {
             "Why would someone believe YOU can do this better than the alternatives? (Your unfair advantage?)",
             "What's the main objection someone throws at you right before buying? (What's the doubt?)"
         ],
-        "report_focus": "Value Proposition"
+        "report_focus": "Value Proposition",
+        "insight_key": 3
     },
     4: {
         "title": "💰 Level 4 — Money talk… don't run away",
