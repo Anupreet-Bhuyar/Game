@@ -475,34 +475,289 @@ with col3:
             st.markdown(f"""
             <div class='level-header'>
                 <div style='font-size: 64px; margin-bottom: 20px;'>🎉</div>
-                <div class='level-title'>Your Blueprint is Ready</div>
-                <div class='level-desc'>Here's what you need to build</div>
+                <div class='level-title'>Your Creative Assets Are Ready</div>
+                <div class='level-desc'>Everything you need to build, based on YOUR answers</div>
             </div>
             """, unsafe_allow_html=True)
             
-            # Summary
+            st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
+            
+            # Extract answers
+            l1_q1 = st.session_state.responses.get("level_1", {}).get(levels[1]["questions"][0], "")
+            l1_q2 = st.session_state.responses.get("level_1", {}).get(levels[1]["questions"][1], "")
+            l2_q1 = st.session_state.responses.get("level_2", {}).get(levels[2]["questions"][0], "")
+            l2_q2 = st.session_state.responses.get("level_2", {}).get(levels[2]["questions"][1], "")
+            l3_q1 = st.session_state.responses.get("level_3", {}).get(levels[3]["questions"][0], "")
+            l3_q2 = st.session_state.responses.get("level_3", {}).get(levels[3]["questions"][1], "")
+            
+            # LEVEL 1 ASSETS
+            st.markdown(f"""
+            <div class='assets-section'>
+                <div class='assets-title'>🔥 LEVEL 1: Foundation Assets</div>
+                <div class='assets-subtitle'>Your problem, persona, and market validation</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>📋</div>
+                <div class='asset-title'>1. Problem Definition Document</div>
+                <div class='asset-desc'><strong>What to build:</strong> A one-pager that positions your solution</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**Core Problem Statement:**")
+                if l1_q1:
+                    st.markdown(f"> {l1_q1.split('?')[0].strip()}?")
+                else:
+                    st.markdown("> *[Your problem here]*")
+            with col2:
+                st.markdown("**Current Workarounds They Use:**")
+                if l1_q1 and "NOW" in l1_q1:
+                    st.markdown("> Extract their current solution attempts from your answer")
+                else:
+                    st.markdown("> *[What they're using now]*")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>👥</div>
+                <div class='asset-title'>2. Buyer Persona Profile (One-Pager)</div>
+                <div class='asset-desc'><strong>What to build:</strong> Visual persona template with their dreams & fears</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.markdown(f"""
-                <div class='asset-card'>
-                    <div class='asset-icon'>🔥</div>
-                    <div class='asset-title'>Level 1</div>
-                    <div class='asset-desc'>Foundation & Audience</div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown("**Who They Are:**")
+                if l1_q2:
+                    parts = l1_q2.split(",")
+                    st.markdown(f"> {parts[0].strip() if parts else '[Role/Title]'}")
+                else:
+                    st.markdown("> *[Their role/industry]*")
             with col2:
-                st.markdown(f"""
-                <div class='asset-card'>
-                    <div class='asset-icon'>⚡</div>
-                    <div class='asset-title'>Level 2</div>
-                    <div class='asset-desc'>Offer & Trust</div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown("**What Frustrates Them:**")
+                if l1_q2:
+                    st.markdown(f"> Daily friction in their work/life")
+                else:
+                    st.markdown("> *[Key frustrations]*")
             with col3:
-                st.markdown(f"""
-                <div class='asset-card'>
-                    <div class='asset-icon'>🚀</div>
-                    <div class='asset-title'>Level 3</div>
-                    <div class='asset-desc'>Go-to-Market</div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown("**Their Secret Dream:**")
+                if l1_q2 and "aspirational" in l1_q2.lower():
+                    st.markdown(f"> The identity they want to claim")
+                else:
+                    st.markdown("> *[Who they want to become]*")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🎯</div>
+                <div class='asset-title'>3. Market Validation Checklist</div>
+                <div class='asset-desc'><strong>What to build:</strong> Evidence that this market exists & has money</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            - [ ] Interview 5 people with this problem
+            - [ ] Document what they're currently paying for
+            - [ ] Quantify the cost of the problem (time/money lost)
+            - [ ] Find 3 competitors or partial solutions they use
+            - [ ] Screenshot their frustrations in public (Twitter, Reddit, forums)
+            """)
+            
+            # LEVEL 2 ASSETS
+            st.markdown(f"""
+            <div class='assets-section'>
+                <div class='assets-title'>⚡ LEVEL 2: Offer & Trust Assets</div>
+                <div class='assets-subtitle'>Your value prop, competitive advantage, and risk reversal</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🎁</div>
+                <div class='asset-title'>4. Value Proposition One-Liner</div>
+                <div class='asset-desc'><strong>What to build:</strong> The core transformation in one sentence</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if l2_q1:
+                st.info(f"**Your Transformation:** {l2_q1.split('?')[0].strip()}?")
+            else:
+                st.info("**Your Transformation:** [What fundamentally changes for them]")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🏆</div>
+                <div class='asset-title'>5. Competitive Advantage Statement</div>
+                <div class='asset-desc'><strong>What to build:</strong> Why THEY can deliver this better</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if l2_q1:
+                st.warning("**Your Unfair Advantage:** Extract why you're different from your answer above")
+            else:
+                st.warning("**Your Unfair Advantage:** [What makes you unique]")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🔥</div>
+                <div class='asset-title'>6. Objection Handler Documents</div>
+                <div class='asset-desc'><strong>What to build:</strong> FAQ, blog posts, and email sequences</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**Main Objection to Address:**")
+                if l2_q1:
+                    st.markdown(f"> The 'doubt' they have before buying")
+                else:
+                    st.markdown("> *[What's their main hesitation?]*")
+            with col2:
+                st.markdown("**Proof Points to Include:**")
+                st.markdown("> • Testimonials\n> • Case studies\n> • Before/After comparisons\n> • Data/Results")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🛡️</div>
+                <div class='asset-title'>7. Trust & Risk-Reversal Kit</div>
+                <div class='asset-desc'><strong>What to build:</strong> Guarantee, testimonials, social proof</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**Their Biggest Fear:**")
+                if l2_q2:
+                    st.markdown(f"> Extract from: What's the emotional fear?")
+                else:
+                    st.markdown("> *[What do they fear losing?]*")
+            with col2:
+                st.markdown("**Your Guarantee:**")
+                if l2_q2:
+                    st.markdown(f"> Design to remove that specific fear")
+                else:
+                    st.markdown("> *[Money back? Results guaranteed? Risk reversal?]*")
+            
+            # LEVEL 3 ASSETS
+            st.markdown(f"""
+            <div class='assets-section'>
+                <div class='assets-title'>🚀 LEVEL 3: Launch & Go-to-Market Assets</div>
+                <div class='assets-subtitle'>Messaging, pricing, and customer acquisition</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>📢</div>
+                <div class='asset-title'>8. Marketing Headline & Hero Copy</div>
+                <div class='asset-desc'><strong>What to build:</strong> Your website hero section text</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if l3_q1:
+                st.success(f"**Your Headline:** Extract the one-sentence offer from your answer")
+            else:
+                st.success("**Your Headline:** [What's your core promise?]")
+            
+            st.markdown("**Hero Copy Template:**\n- Headline\n- Subheading (why them specifically)\n- Main benefit\n- Call to action")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>📖</div>
+                <div class='asset-title'>9. Proof Story & Case Study Template</div>
+                <div class='asset-desc'><strong>What to build:</strong> The narrative that proves it works</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if l3_q1:
+                st.markdown("**Your Proof Story:** The story that shows this works (origin/customer success)")
+            else:
+                st.markdown("**Your Proof Story:** [What evidence do you have?]")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>💰</div>
+                <div class='asset-title'>10. Pricing & ROI Justification Document</div>
+                <div class='asset-desc'><strong>What to build:</strong> Show ROI so price feels like a steal</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.markdown("**ROI They Get:**")
+                if l3_q2:
+                    st.markdown("> Time saved? Money made? Status gained?")
+                else:
+                    st.markdown("> *[Quantify the win]*")
+            with col2:
+                st.markdown("**Price Point (Steal Zone):**")
+                if l3_q2:
+                    st.markdown("> Where they think 'wow, that's cheap'")
+                else:
+                    st.markdown("> *[What feels like great value?]*")
+            with col3:
+                st.markdown("**Real Scarcity/Urgency:**")
+                if l3_q2:
+                    st.markdown("> Limited spots? Deadline? Seasonal?")
+                else:
+                    st.markdown("> *[What's actually scarce?]*")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>📱</div>
+                <div class='asset-title'>11. Multi-Channel Content Stack</div>
+                <div class='asset-desc'><strong>What to build:</strong> Content adapted for each platform</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            channels = {
+                "Twitter/X": "20-char punchy hooks + proof",
+                "LinkedIn": "Thought leadership + case study",
+                "Facebook": "Emotional + transformation angle",
+                "Email": "Story-driven sequences",
+                "Landing Page": "Hero copy + proof + CTA",
+                "Sales Page": "Full VSL script + testimonials"
+            }
+            
+            for platform, what_to_do in channels.items():
+                st.markdown(f"✓ **{platform}:** {what_to_do}")
+            
+            st.markdown("""
+            <div class='asset-card'>
+                <div class='asset-icon'>🎯</div>
+                <div class='asset-title'>12. Customer Acquisition Plan</div>
+                <div class='asset-desc'><strong>What to build:</strong> Where to find & reach your people</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            - [ ] Identify 3 platforms where customers hang out
+            - [ ] Create a lead magnet that solves a micro-problem
+            - [ ] Build email nurture sequence (5-7 emails)
+            - [ ] Design sales page conversion flow
+            - [ ] Set up tracking & analytics
+            - [ ] Plan initial customer outreach campaign
+            """)
+            
+            st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
+            
+            st.markdown("""
+            <div class='level-header'>
+                <div style='font-size: 48px; margin-bottom: 16px;'>✅</div>
+                <div class='level-title'>You Have Everything You Need</div>
+                <div class='level-desc'>12 Creative Assets Ready to Build • Download Your Answers • Start Creating Today</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Download button
+            import json
+            all_responses = st.session_state.responses
+            json_str = json.dumps(all_responses, indent=2)
+            st.download_button(
+                label="📥 Download Your Complete Blueprint (JSON)",
+                data=json_str,
+                file_name=f"offer_blueprint_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                mime="application/json"
+            )
